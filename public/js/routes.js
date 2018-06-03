@@ -4,6 +4,22 @@ routes = [
     url: './index.html',
   },
   {
+      path: '/user/:username',
+      url: '/bucket/{{username}}',
+      async: function (routeTo, routeFrom, resolve, reject) {
+          // Router instance
+          var router = this;
+          // App instance
+          var app = router.app;
+          // Show Preloader
+          app.preloader.show();
+      },
+  },
+{
+    path: '/upload',
+    url: '/upload',
+},
+  {
     path: '/about/',
     url: './pages/about.html',
   },

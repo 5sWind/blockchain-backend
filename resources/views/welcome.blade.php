@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="framework7/css/framework7.min.css">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/app.css">
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
     <style>
         .demo-facebook-card .card-header {
             display: block;
@@ -73,28 +75,14 @@
                     </div>
                 </div>
                 <div class="page-content">
-                    <div class="block-title">Left View Navigation</div>
+                    <div class="block-title">菜单</div>
                     <div class="list links-list">
                         <ul>
-                            <li><a href="/left-page-1/">Left Page 1</a></li>
-                            <li><a href="/left-page-2/">Left Page 2</a></li>
+                            <li><a href="/" data-view=".view-main" data-ignore-cache="true" class="panel-close">首页</a></li>
+                            <li><a href="/user/{{ \Illuminate\Support\Facades\Auth::user() == null ? "" : \Illuminate\Support\Facades\Auth::user()->name }}" data-view=".view-main" data-ignore-cache="true" class="panel-close">我的</a></li>
+                            <li><a href="/upload" data-view=".view-main" data-ignore-cache="true" class="panel-close">上传</a></li>
                         </ul>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Right panel with cover effect -->
-    <div class="panel panel-right panel-cover theme-dark">
-        <div class="view">
-            <div class="page">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="title">Right Panel</div>
-                    </div>
-                </div>
-                <div class="page-content">
-                    <div class="block">Right panel content goes here</div>
                 </div>
             </div>
         </div>
@@ -104,41 +92,32 @@
     <div class="view view-main ios-edges">
         <!-- Page, data-name contains page name which can be used in callbacks -->
         <div class="page" data-name="home">
+            <!-- Top Navbar -->
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="link icon-only panel-open" data-panel="left">
+                            <i class="icon f7-icons ios-only">menu</i>
+                            <i class="icon material-icons md-only">menu</i>
+                        </a>
+                    </div>
+                    <div class="title sliding">CamChain</div>
+                </div>
+            </div>
             <!-- Scrollable page content-->
             <div class="page-content">
                 <div class="row">
                     @foreach ($buckets as $bucket)
-                        <div class="card demo-facebook-card col-33">
+                        <div class="card demo-facebook-card desktop-33 col-100">
                             <div class="card-header">
-                                <div class="demo-facebook-avatar"><img src="http://lorempixel.com/68/68/people/1/" width="34" height="34"/></div>
+                                <div class="demo-facebook-avatar"><img src="http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eprBvgOthOlFVR5GkNwxxzFEVTUafU0kk1fM99WnWWe1hDspMsha9kykWF0qzKDVD1OJPP6N5RNrg/132" width="34" height="34"/></div>
                                 <div class="demo-facebook-name">{{ $bucket->name }}</div>
-                                <div class="demo-facebook-date">{{ $bucket->created }}</div>
+                                <div class="demo-facebook-date">{{ ($bucket->cover)["created"] }}</div>
                             </div>
                             <div class="card-content"> <img src="{{ ($bucket->cover)["picture"] }}" width="100%"/></div>
-                            <div class="card-footer"><a href="#" class="link">Like</a><a href="#" class="link">Comment</a><a href="#" class="link">Share</a></div>
+                            <div class="card-footer"><a href="/user/{{ $bucket->name }}" class="link">View all</a></div>
                         </div>
                     @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Popup -->
-    <div class="popup" id="my-popup">
-        <div class="view">
-            <div class="page">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="title">Popup</div>
-                        <div class="right">
-                            <a href="#" class="link popup-close">Close</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-content">
-                    <div class="block">
-                        <p>Popup content goes here.</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -149,22 +128,14 @@
         <div class="view">
             <div class="page">
                 <div class="page-content login-screen-content">
-                    <div class="login-screen-title">Login</div>
+                    <div class="login-screen-title">欢迎</div>
                     <div class="list">
                         <ul>
                             <li class="item-content item-input">
                                 <div class="item-inner">
-                                    <div class="item-title item-label">Username</div>
+                                    <div class="item-title item-label">用户名</div>
                                     <div class="item-input-wrap">
-                                        <input type="text" name="username" placeholder="Your username">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item-content item-input">
-                                <div class="item-inner">
-                                    <div class="item-title item-label">Password</div>
-                                    <div class="item-input-wrap">
-                                        <input type="password" name="password" placeholder="Your password">
+                                        <input type="text" name="username" placeholder="Username">
                                     </div>
                                 </div>
                             </li>
@@ -173,10 +144,10 @@
                     <div class="list">
                         <ul>
                             <li>
-                                <a href="#" class="item-link list-button login-button">Sign In</a>
+                                <a href="#" class="item-link list-button login-button">注册</a>
                             </li>
                         </ul>
-                        <div class="block-footer">Some text about login information.<br>Click "Sign In" to close Login Screen</div>
+                        <div class="block-footer">您似乎是第一次访问<br>您可以先创建一个账户</div>
                     </div>
                 </div>
             </div>
@@ -187,12 +158,16 @@
 <!--
 <script src="cordova.js"></script>
 -->
+<script src="js/client.min.js"></script>
 
 <!-- Framework7 library -->
 <script src="framework7/js/framework7.min.js"></script>
 
 <!-- App routes -->
 <script src="js/routes.js"></script>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 
 <!-- Your custom app scripts -->
 <script src="js/app.js"></script>
