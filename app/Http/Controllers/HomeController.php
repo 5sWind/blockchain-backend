@@ -183,7 +183,7 @@ class HomeController extends Controller
                 "msg" => "文件过大，请限制在500KB以内",
             ));
         }
-        
+
         $response = Curl::to(env("API_SERVER") . "file/upload")
             ->withData( array(
                 'filedata' => $filedata,
