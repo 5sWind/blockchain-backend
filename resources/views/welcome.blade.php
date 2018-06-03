@@ -108,7 +108,7 @@
             <div class="page-content">
                 <div class="row">
                     @foreach ($buckets as $bucket)
-                        <div class="card demo-facebook-card desktop-33 col-100">
+                        <div class="card demo-facebook-card desktop-30 col-100">
                             <div class="card-header">
                                 <div class="demo-facebook-avatar"><img src="http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eprBvgOthOlFVR5GkNwxxzFEVTUafU0kk1fM99WnWWe1hDspMsha9kykWF0qzKDVD1OJPP6N5RNrg/132" width="34" height="34"/></div>
                                 <div class="demo-facebook-name">{{ $bucket->name }}</div>
