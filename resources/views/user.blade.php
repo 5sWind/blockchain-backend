@@ -24,7 +24,7 @@
                         <p>{!! $file["msg"] !!}</p>
                         <img src="{{ $file["picture"] }}" width="100%"/>
                     </div>
-                    <div class="card-footer"><a href="#" class="link">Like</a><a href="#" class="link">Comment</a><a href="#" class="link">Share</a></div>
+                    <div class="card-footer"></div>
                 </div>
             @endforeach
         </div>
