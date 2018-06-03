@@ -177,6 +177,13 @@ class HomeController extends Controller
         $data = $data["data"];
         $bucket = $this->getBucketIdByUser(Auth::user()->name)->id;
 
+        if (strlen($filedata) > 600) {
+            return Response::json(array(
+                "success" => false,
+                "msg" => "文件过大，请限制在500KB以内",
+            ));
+        }
+        
         $response = Curl::to(env("API_SERVER") . "file/upload")
             ->withData( array(
                 'filedata' => $filedata,
