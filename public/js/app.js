@@ -92,6 +92,8 @@ app.on('pageInit', function (page) {
         app.preloader.hide();
     } else if (page.name === 'upload') {
         $$("#upload_btn").on('click', function () {
+            app.preloader.show();
+
             var data = $$("#msg").val();
 
             var reader = new FileReader();
@@ -113,13 +115,15 @@ app.on('pageInit', function (page) {
                         } else {
                             toastr.success("上传成功", "成功")
                         }
+                        app.preloader.hide();
                     }
                 });
             };
             reader.onerror = function (error) {
                 console.log('Error: ', error);
-            };
+                app.preloader.hide();
 
+            };
 
         });
     }
