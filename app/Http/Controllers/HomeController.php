@@ -177,7 +177,7 @@ class HomeController extends Controller
         $data = $data["data"];
         $bucket = $this->getBucketIdByUser(Auth::user()->name)->id;
 
-        if (strlen($filedata) > 1000) {
+        if (strlen($filedata) > 600 * 1024) {
             return Response::json(array(
                 "success" => false,
                 "msg" => "文件过大",
