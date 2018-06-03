@@ -180,7 +180,7 @@ class HomeController extends Controller
         $response = Curl::to(env("API_SERVER") . "file/upload")
             ->withData( array(
                 'filedata' => $filedata,
-                'data' => ["msg" => $data],
+                'data' => json_encode(["msg" => $data]),
                 'bucket' => $bucket,
             ) )
             ->asJson()
